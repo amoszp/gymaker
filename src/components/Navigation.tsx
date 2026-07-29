@@ -11,7 +11,7 @@ const links = [
 
 export default function Navigation() {
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 pb-[env(safe-area-inset-bottom)]">
       <div className="glass border-b-0 border-t border-white/10 rounded-t-2xl shadow-glass">
         <ul className="grid grid-cols-4 max-w-md mx-auto">
           {links.map(({ to, label, Icon }) => (
@@ -62,9 +62,6 @@ export function DesktopSidebar() {
         <div>
           <p className="font-display text-xl font-bold text-white/95 leading-none">
             GYMAKER
-          </p>
-          <p className="text-[11px] text-white/45 tracking-widest uppercase mt-0.5">
-            Liquid Glass
           </p>
         </div>
       </div>

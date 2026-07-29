@@ -8,9 +8,9 @@ import Navigation, { DesktopSidebar } from '@/components/Navigation';
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex w-full text-white/90">
+      <div className="min-h-screen flex w-full text-white/90 pt-[env(safe-area-inset-top)]">
         <DesktopSidebar />
-        <div className="flex-1 min-w-0 relative">
+        <div className="flex-1 min-w-0 relative pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-0">
           <div className="max-w-none">
             <Routes>
               <Route path="/" element={<Navigate to="/workout" replace />} />

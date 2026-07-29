@@ -61,6 +61,7 @@ const SetCard = memo(function SetCard({
             step={weightIncrement}
             min={0}
             value={set.weight}
+            onFocus={(e) => e.currentTarget.select()}
             onChange={(e) =>
               updateSet(dateKey, exId, set.id, {
                 weight: Number(e.target.value) || 0,
@@ -78,6 +79,7 @@ const SetCard = memo(function SetCard({
             step={1}
             min={0}
             value={set.reps}
+            onFocus={(e) => e.currentTarget.select()}
             onChange={(e) =>
               updateSet(dateKey, exId, set.id, {
                 reps: Number(e.target.value) || 0,

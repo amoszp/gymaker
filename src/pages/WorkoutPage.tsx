@@ -72,7 +72,7 @@ export default function WorkoutPage() {
   };
 
   return (
-    <div className="min-h-full pb-36">
+    <div className="min-h-full pb-10">
       <header className="sticky top-0 z-30">
         <div className="glass border-b border-white/10 px-3 sm:px-5 py-3">
           <div className="max-w-3xl mx-auto flex items-center gap-2 sm:gap-3">

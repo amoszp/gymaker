@@ -11,8 +11,8 @@ const links = [
 
 export default function Navigation() {
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 pb-[env(safe-area-inset-bottom)]">
-      <div className="glass border-b-0 border-t border-white/10 rounded-t-2xl shadow-glass">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50">
+      <div className="w-full bg-ink-950/90 backdrop-blur-md border-t border-white/10 shadow-glass pb-[env(safe-area-inset-bottom)]">
         <ul className="grid grid-cols-4 max-w-md mx-auto">
           {links.map(({ to, label, Icon }) => (
             <li key={to}>

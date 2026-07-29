@@ -103,18 +103,6 @@ export default function WorkoutPage() {
             >
               <ChevronRight size={18} />
             </button>
-
-            <div className="hidden sm:block w-px h-8 bg-white/10 mx-1" />
-
-            <GhostButton
-              size="md"
-              variant="ghost"
-              leftIcon={<Dumbbell size={16} />}
-              onClick={() => setRoutineOpen(true)}
-              className="shrink-0"
-            >
-              <span className="hidden sm:inline">+</span> Routine
-            </GhostButton>
           </div>
         </div>
       </header>
@@ -142,13 +130,22 @@ export default function WorkoutPage() {
               <p className="text-sm text-white/50 max-w-xs mb-5">
                 Start typing a name below, or inject a routine template.
               </p>
-              <GhostButton
-                variant="solid"
-                leftIcon={<Dumbbell size={16} />}
-                onClick={() => setRoutineOpen(true)}
-              >
-                Apply routine
-              </GhostButton>
+              <div className="flex items-center gap-3">
+                <GhostButton
+                  variant="solid"
+                  leftIcon={<Dumbbell size={16} />}
+                  onClick={() => setRoutineOpen(true)}
+                >
+                  Apply routine
+                </GhostButton>
+                <GhostButton
+                  variant="solid"
+                  leftIcon={<Plus size={18} />}
+                  onClick={() => addExercise(activeDateKey, '', false)}
+                >
+                  Add exercise
+                </GhostButton>
+              </div>
             </div>
           )}
 
@@ -160,22 +157,27 @@ export default function WorkoutPage() {
               allTimePRs={allTimePRs}
             />
           ))}
+
+          {exercises.length > 0 && (
+            <div className="pt-2 flex items-center justify-center gap-3">
+              <GhostButton
+                variant="solid"
+                leftIcon={<Dumbbell size={16} />}
+                onClick={() => setRoutineOpen(true)}
+              >
+                Apply routine
+              </GhostButton>
+              <GhostButton
+                variant="solid"
+                leftIcon={<Plus size={18} />}
+                onClick={() => addExercise(activeDateKey, '', false)}
+              >
+                Add exercise
+              </GhostButton>
+            </div>
+          )}
         </div>
       </main>
-
-      <div className="fixed bottom-20 lg:bottom-6 left-0 right-0 z-30 px-4 flex justify-center pointer-events-none">
-        <div className="pointer-events-auto">
-          <GhostButton
-            size="lg"
-            variant="solid"
-            leftIcon={<Plus size={18} />}
-            onClick={() => addExercise(activeDateKey, '', false)}
-            className="shadow-[0_10px_40px_rgba(123,44,51,0.45)]"
-          >
-            Add exercise
-          </GhostButton>
-        </div>
-      </div>
 
       <MiniCalendarModal
         open={calOpen}

@@ -87,34 +87,18 @@ export default function SettingsPage() {
 
       <GlassCard className="p-5">
         {sectionTitle(<Dumbbell size={20} />, 'Exercise Library')}
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-white/70">
-            Total Exercises:{' '}
-            <span className="font-display font-semibold text-white/95">
-              {Object.keys(library).length}
-            </span>
-          </span>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <p className="text-sm text-white/70">
+              Manage your exercise names and tags. Changes apply across your entire history.
+            </p>
+            <p className="text-xs text-white/45 mt-1">
+              Total exercises: {Object.keys(library).length}
+            </p>
+          </div>
           <GhostButton variant="ghost" size="md" onClick={() => setLibOpen(true)}>
             Manage Exercises
           </GhostButton>
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          {Object.values(library)
-            .slice(0, 30)
-            .map((e) => (
-              <span
-                key={e.name}
-                className="chip"
-                title={e.tags.join(', ') || e.name}
-              >
-                {e.name}
-              </span>
-            ))}
-          {Object.keys(library).length > 30 && (
-            <span className="chip text-white/50">
-              +{Object.keys(library).length - 30} more
-            </span>
-          )}
         </div>
       </GlassCard>
 

@@ -12,6 +12,8 @@ import {
   formatMonthYear,
   toDateKey,
   isToday as isTodayKey,
+  startOfWeek,
+  formatShort,
 } from '@/utils/date';
 
 export default function CalendarPage() {
@@ -20,22 +22,58 @@ export default function CalendarPage() {
   const weekStartsOn = useStore((s) => s.prefs.weekStartsOn);
 
   const [cursor, setCursor] = useState<Date>(new Date());
+  const [view, setView] = useState<'month' | 'week'>('month');
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const [copyModalOpen, setCopyModalOpen] = useState(false);
   const [copyModalDate, setCopyModalDate] = useState<string | null>(null);
   const [weekExpanded, setWeekExpanded] = useState(true);
 
-  const grid = useMemo(() => buildMonthGrid(cursor, weekStartsOn), [cursor, weekStartsOn]);
+  const weekDays = useMemo(() => {
+    const start = startOfWeek(cursor, weekStartsOn);
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return d;
+    });
+  }, [cursor, weekStartsOn]);
+
+  const grid = useMemo(() => {
+    if (view === 'week') return weekDays;
+    return buildMonthGrid(cursor, weekStartsOn);
+  }, [cursor, weekStartsOn, view, weekDays]);
   const wdLabels = useMemo(() => weekdayLabels(weekStartsOn), [weekStartsOn]);
 
-  const prevMonth = () =>
+  const prev = () => {
+    if (view === 'week') {
+      const d = new Date(cursor);
+      d.setDate(d.getDate() - 7);
+      setCursor(d);
+      return;
+    }
     setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1));
-  const nextMonth = () =>
+  };
+
+  const next = () => {
+    if (view === 'week') {
+      const d = new Date(cursor);
+      d.setDate(d.getDate() + 7);
+      setCursor(d);
+      return;
+    }
     setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1));
+  };
+
   const gotoToday = () => {
     setCursor(new Date());
     setActiveKey(toDateKey(new Date()));
   };
+
+  const headerTitle = useMemo(() => {
+    if (view === 'month') return formatMonthYear(cursor);
+    const startKey = toDateKey(weekDays[0]);
+    const endKey = toDateKey(weekDays[6]);
+    return `${formatShort(startKey)} — ${formatShort(endKey)}`;
+  }, [cursor, view, weekDays]);
 
   const handleDayClick = (d: Date, key: string) => {
     const hasWorkout = workouts[key]?.exercises?.length > 0;
@@ -57,8 +95,8 @@ export default function CalendarPage() {
           <GhostButton
             variant="soft"
             size="icon"
-            onClick={prevMonth}
-            aria-label="Previous month"
+            onClick={prev}
+            aria-label={view === 'week' ? 'Previous week' : 'Previous month'}
           >
             <ChevronLeft size={18} />
           </GhostButton>
@@ -66,7 +104,7 @@ export default function CalendarPage() {
             <div className="flex items-center gap-1.5">
               <CalendarDays size={16} className="text-crimson-100" />
               <h1 className="font-display text-base sm:text-lg font-semibold text-white/95">
-                {formatMonthYear(cursor)}
+                {headerTitle}
               </h1>
             </div>
             <GhostButton variant="soft" size="sm" onClick={gotoToday}>
@@ -76,10 +114,26 @@ export default function CalendarPage() {
           <GhostButton
             variant="soft"
             size="icon"
-            onClick={nextMonth}
-            aria-label="Next month"
+            onClick={next}
+            aria-label={view === 'week' ? 'Next week' : 'Next month'}
           >
             <ChevronRight size={18} />
+          </GhostButton>
+        </div>
+        <div className="flex items-center justify-center gap-2 px-1 mb-3">
+          <GhostButton
+            size="sm"
+            variant={view === 'month' ? 'chip' : 'soft'}
+            onClick={() => setView('month')}
+          >
+            Month
+          </GhostButton>
+          <GhostButton
+            size="sm"
+            variant={view === 'week' ? 'chip' : 'soft'}
+            onClick={() => setView('week')}
+          >
+            Week
           </GhostButton>
         </div>
         <div className="grid grid-cols-7 gap-1.5 px-1 mb-1.5">

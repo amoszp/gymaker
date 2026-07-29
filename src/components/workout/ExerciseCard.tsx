@@ -274,7 +274,7 @@ const ExerciseCard = memo(function ExerciseCard({
         ))}
         <button
           onClick={handleAddSet}
-          className="shrink-0 w-[110px] rounded-xl border border-dashed border-white/15 text-white/40 hover:text-crimson-100 hover:border-crimson/50 hover:bg-crimson/5 flex flex-col items-center justify-center gap-1 transition text-xs font-medium tracking-wide"
+          className="shrink-0 w-[110px] rounded-xl border border-dashed border-white/15 bg-crimson/15 text-white/50 hover:text-crimson-100 hover:border-crimson/50 hover:bg-crimson/20 flex flex-col items-center justify-center gap-1 transition text-xs font-medium tracking-wide"
         >
           <Plus size={18} />
           Add Set

@@ -60,7 +60,7 @@ export default {
       },
       boxShadow: {
         glass: "0 8px 32px 0 rgba(0,0,0,0.37)",
-        crimson: "0 4px 20px 0 rgba(123,44,51,0.35)",
+        crimson: "0 0 10px rgba(123, 44, 51, 0.2)",
       },
       backdropBlur: {
         xs: "2px",

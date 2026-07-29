@@ -21,9 +21,9 @@ const base =
 
 const variants: Record<Variant, string> = {
   ghost:
-    'border border-crimson/60 text-crimson-100 bg-crimson/5 hover:bg-crimson/15 hover:border-crimson hover:shadow-crimson',
+    'border border-crimson/60 text-crimson-100 bg-crimson/5 hover:bg-crimson/10 hover:border-crimson hover:shadow-crimson',
   solid:
-    'bg-crimson text-white hover:bg-crimson-500 border border-crimson/70 shadow-crimson',
+    'bg-crimson text-white border border-crimson/70 shadow-crimson hover:bg-crimson-500/90',
   soft:
     'bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 hover:text-white',
   chip: 'text-xs px-2.5 py-1 rounded-full border border-crimson/50 text-crimson-100 bg-crimson/10 hover:bg-crimson/20',

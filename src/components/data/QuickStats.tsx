@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Dumbbell, Weight, Layers, Activity, Trophy, Calendar } from 'lucide-react';
+import { ChevronDown, Dumbbell, Weight, Layers, Activity, Trophy, Calendar } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
 import { cn } from '@/lib/utils';
 import type { QuickStats as QuickStatsType } from '@/utils/pr';

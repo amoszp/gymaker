@@ -32,6 +32,7 @@ export default function DayCell({
   return (
     <div
       onClick={onClick}
+      title={dateKey}
       className={cn(
         'relative aspect-square glass-soft rounded-xl3 p-2 cursor-pointer select-none',
         'transition-all duration-200 hover:-translate-y-0.5 hover:shadow-crimson',

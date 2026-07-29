@@ -1,7 +1,7 @@
 export interface ExerciseSet {
   id: string;
-  weight: number;
-  reps: number;
+  weight: number | '';
+  reps: number | '';
   isPR?: boolean;
   e1RM?: number;
 }

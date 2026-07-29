@@ -35,7 +35,10 @@ export default function DayCopyModal({ open, onClose, dateKey }: DayCopyModalPro
   const exercisesWithVolume = useMemo(() => {
     if (!workout) return [];
     return workout.exercises.map((ex) => {
-      const volume = ex.sets.reduce((sum, s) => sum + s.weight * s.reps, 0);
+      const volume = ex.sets.reduce(
+        (sum, s) => sum + Number(s.weight || 0) * Number(s.reps || 0),
+        0,
+      );
       return { ...ex, volume };
     });
   }, [workout]);

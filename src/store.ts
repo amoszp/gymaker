@@ -17,7 +17,7 @@ import { workoutsToCSV } from '@/utils/csv';
 
 const uid = () => Math.random().toString(36).slice(2, 11);
 
-function makeSet(weight: number, reps: number): ExerciseSet {
+function makeSet(weight: number | '', reps: number | ''): ExerciseSet {
   return { id: uid(), weight, reps, e1RM: brzycki(weight, reps) };
 }
 
@@ -291,8 +291,8 @@ export const useStore = create<Store>()(
             const sets: ExerciseSet[] = [];
             for (let i = 0; i < seed.sets; i++) {
               const lib = library[seed.name.toLowerCase()];
-              let w0 = seed.defaultWeight ?? DEFAULT_WEIGHT;
-              let r0 = seed.defaultReps ?? DEFAULT_REPS;
+              let w0: number | '' = seed.defaultWeight ?? DEFAULT_WEIGHT;
+              let r0: number | '' = seed.defaultReps ?? DEFAULT_REPS;
               if (lib?.lastUsed?.sets?.[i]) {
                 w0 = lib.lastUsed.sets[i].weight;
                 r0 = lib.lastUsed.sets[i].reps;

@@ -64,7 +64,7 @@ const SetCard = memo(function SetCard({
             onFocus={(e) => e.currentTarget.select()}
             onChange={(e) =>
               updateSet(dateKey, exId, set.id, {
-                weight: Number(e.target.value) || 0,
+                weight: e.target.value === '' ? '' : Number(e.target.value),
               })
             }
             className="w-full h-8 rounded-lg bg-ink-950/80 border border-white/10 px-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-crimson/60"
@@ -82,7 +82,7 @@ const SetCard = memo(function SetCard({
             onFocus={(e) => e.currentTarget.select()}
             onChange={(e) =>
               updateSet(dateKey, exId, set.id, {
-                reps: Number(e.target.value) || 0,
+                reps: e.target.value === '' ? '' : Number(e.target.value),
               })
             }
             className="w-full h-8 rounded-lg bg-ink-950/80 border border-white/10 px-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-crimson/60"
@@ -95,7 +95,7 @@ const SetCard = memo(function SetCard({
               {brzycki(set.weight, set.reps)}
             </span>
           </span>
-          <span>{set.weight * set.reps}kg</span>
+          <span>{Number(set.weight || 0) * Number(set.reps || 0)}kg</span>
         </div>
       </div>
     </div>

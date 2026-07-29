@@ -57,11 +57,11 @@ const ExerciseCard = memo(function ExerciseCard({
 
   const setIsPR = (s: ExerciseSet, idx: number): boolean => {
     const prevSetsSameDay = exercise.sets.slice(0, idx);
-    let rolling: { weight: number; reps: number } | null = prBestForEx
+    let rolling: { weight: number | ''; reps: number | '' } | null = prBestForEx
       ? { weight: prBestForEx.weight, reps: prBestForEx.reps }
       : null;
     if (!rolling) {
-      const historySets: { weight: number; reps: number }[] = [];
+      const historySets: { weight: number | ''; reps: number | '' }[] = [];
       const keys = Object.keys(workouts).sort();
       for (const dk of keys) {
         if (dk >= dateKey) continue;

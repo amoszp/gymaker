@@ -1,18 +1,20 @@
 import type { DayWorkout, ExerciseSet, PRBest } from '@/types';
 
-export function brzycki(weight: number, reps: number): number {
-  if (!weight || weight <= 0 || !reps || reps <= 0) return 0;
-  if (reps >= 35) {
-    return Math.round(weight * 1.03 * 10) / 10;
+export function brzycki(weight: number | '' | null | undefined, reps: number | '' | null | undefined): number {
+  const w = typeof weight === 'number' ? weight : Number(weight || 0);
+  const r = typeof reps === 'number' ? reps : Number(reps || 0);
+  if (!w || w <= 0 || !r || r <= 0) return 0;
+  if (r >= 35) {
+    return Math.round(w * 1.03 * 10) / 10;
   }
-  const denom = 1.0278 - 0.0278 * reps;
-  if (denom <= 0) return Math.round(weight * 1.05 * 10) / 10;
-  return Math.round((weight / denom) * 10) / 10;
+  const denom = 1.0278 - 0.0278 * r;
+  if (denom <= 0) return Math.round(w * 1.05 * 10) / 10;
+  return Math.round((w / denom) * 10) / 10;
 }
 
 export function comparePR(
-  newS: { weight: number; reps: number },
-  prevBest: { weight: number; reps: number } | null,
+  newS: { weight: number | ''; reps: number | '' },
+  prevBest: { weight: number | ''; reps: number | '' } | null,
 ): boolean {
   const current = brzycki(newS.weight, newS.reps);
   if (!prevBest) return current > 0;
@@ -22,7 +24,7 @@ export function comparePR(
 
 export function attachPRFlags(
   sets: ExerciseSet[],
-  historyBest: { weight: number; reps: number } | null,
+  historyBest: { weight: number | ''; reps: number | '' } | null,
 ): ExerciseSet[] {
   let rollingBest = historyBest;
   return sets.map((s) => {
@@ -58,8 +60,8 @@ export function computeAllPRs(
         if (!cur || e1RM > cur.e1RM) {
           best[ex.name] = {
             exercise: ex.name,
-            weight: s.weight,
-            reps: s.reps,
+            weight: Number(s.weight || 0),
+            reps: Number(s.reps || 0),
             e1RM,
             dateKey,
             tags: [...ex.tags],
@@ -68,7 +70,7 @@ export function computeAllPRs(
           };
         }
         const accum = best[ex.name];
-        accum.totalVolume += s.weight * s.reps;
+        accum.totalVolume += Number(s.weight || 0) * Number(s.reps || 0);
         accum.totalSets += 1;
       }
     }
@@ -102,7 +104,7 @@ export function computeQuickStats(workouts: Record<string, DayWorkout>): QuickSt
     totalExercises += w.exercises.length;
     for (const ex of w.exercises) {
       for (const s of ex.sets) {
-        totalVolume += s.weight * s.reps;
+        totalVolume += Number(s.weight || 0) * Number(s.reps || 0);
         totalSets += 1;
       }
     }

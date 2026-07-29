@@ -5,6 +5,7 @@
 @layer base {
   html, body, #root {
     height: 100%;
+    background-color: #050505;
   }
   body {
     background:
@@ -18,6 +19,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation;
+    overflow: hidden;
   }
   ::-webkit-scrollbar {
     width: 8px;

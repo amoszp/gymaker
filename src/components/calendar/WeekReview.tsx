@@ -37,19 +37,21 @@ export default function WeekReview({ expanded, onToggle, referenceDate }: WeekRe
       totalWorkouts++;
       for (const ex of w.exercises) {
         for (const set of ex.sets) {
-          totalVolume += set.weight * set.reps;
+          const wNum = Number(set.weight || 0);
+          const rNum = Number(set.reps || 0);
+          totalVolume += wNum * rNum;
           totalSets++;
           const e1rm = brzycki(set.weight, set.reps);
           if (e1rm > 0 && (!bestPR || e1rm > bestPR.e1RM)) {
             bestPR = {
               exercise: ex.name,
-              weight: set.weight,
-              reps: set.reps,
+              weight: wNum,
+              reps: rNum,
               e1RM: e1rm,
               dateKey: key,
               tags: [...ex.tags],
-              setWeight: set.weight,
-              setReps: set.reps,
+              setWeight: wNum,
+              setReps: rNum,
             };
           }
         }
